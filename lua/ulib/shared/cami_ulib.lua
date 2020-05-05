@@ -20,7 +20,11 @@ local function playerHasAccess( actorPly, priv, callback, targetPly, extra )
 	-- access does not have to be tied to a group, but CAMI requires an access to
 	-- be tied to a group. To work around this, ULX cannot defer an access
 	-- decision, but has to give an authoritative answer to each query.
-	callback(not not result) -- double not converts a nil to a false
+	
+	if callback then
+		callback(not not result) -- double not converts a nil to a false
+	end
+	
 	return true
 end
 hook.Add( "CAMI.PlayerHasAccess", "ULXCamiPlayerHasAccess", playerHasAccess )
